@@ -6,7 +6,7 @@ from flask import (
     Blueprint, render_template, redirect, request, url_for, session, current_app, Response, render_template_string
 )
 
-bp = Blueprint('chat', __name__, url_prefix='/api/v1/chat')
+bp = Blueprint('ChatPage', __name__, url_prefix='/api/v1/ChatPage')
 
 
 def stream_coze_response(bot_id, user_id, query, coze_api_token, coze_api_base):
@@ -18,7 +18,7 @@ def stream_coze_response(bot_id, user_id, query, coze_api_token, coze_api_base):
         # 初始化 Coze 客户端
         coze = Coze(auth=TokenAuth(token=coze_api_token), base_url=coze_api_base)
 
-        # 流式调用 chat 方法
+        # 流式调用 ChatPage 方法
         for event in coze.chat.stream(
                 bot_id=bot_id,
                 user_id=user_id,
@@ -243,7 +243,7 @@ def send_message():
             background-color: #e4e7f2;
         }
         
-        .chat-area {
+        .ChatPage-area {
             flex: 1;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
@@ -438,7 +438,7 @@ def send_message():
                 
                 <div class="connection-info">
                     <p><strong>当前模式:</strong> HTTP流式传输</p>
-                    <p><strong>端点:</strong> /api/v1/chat/send_message</p>
+                    <p><strong>端点:</strong> /api/v1/ChatPage/send_message</p>
                     <p><strong>准备升级:</strong> WebSocket协议</p>
                 </div>
             </div>
@@ -449,7 +449,7 @@ def send_message():
                     <span>已连接到服务器 - 使用HTTP流式传输</span>
                 </div>
                 
-                <div class="chat-area" id="chatArea">
+                <div class="ChatPage-area" id="chatArea">
                     <div class="message bot-message">
                         欢迎使用Flask聊天验证工具！请发送消息开始对话。
                     </div>
@@ -534,7 +534,7 @@ def send_message():
             // 使用Axios发送POST请求
             axios({
                 method: 'POST',
-                url: '/api/v1/chat/send_message',
+                url: '/api/v1/ChatPage/send_message',
                 data: {
                     user_id: user_id,
                     conversation_id: conversation_id,
